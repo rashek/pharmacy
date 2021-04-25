@@ -5,13 +5,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthGmail extends StatefulWidget {
-  AuthGmail(this.createFn);
-  final void Function(
-    String email,
-    String uid,
-    String username,
-    String url,
-  ) createFn;
+  // AuthGmail(this.createFn);
+  // final void Function(
+  //   String email,
+  //   String uid,
+  //   String username,
+  //   String url,
+  // ) createFn;
   @override
   _AuthGmailState createState() => _AuthGmailState();
 }
@@ -38,29 +38,30 @@ class _AuthGmailState extends State<AuthGmail> {
 
       User fireUser =
           (await firebaseAuth.signInWithCredential(credential)).user;
+      return fireUser;
 
-      if (fireUser != null) {
-        final QuerySnapshot result = await FirebaseFirestore.instance
-            .collection('user')
-            .where('uid', isEqualTo: fireUser.uid)
-            .get();
-        final List<DocumentSnapshot> documents = result.docs;
-        // print(document.data.)
-        if (documents.length == 0) {
-          // Update data to server if new user
-          widget.createFn(
-            fireUser.email,
-            fireUser.uid,
-            fireUser.displayName,
-            fireUser.photoURL,
-          );
-        }
+      // if (fireUser != null) {
+      //   final QuerySnapshot result = await FirebaseFirestore.instance
+      //       .collection('user')
+      //       .where('uid', isEqualTo: fireUser.uid)
+      //       .get();
+      //   final List<DocumentSnapshot> documents = result.docs;
+      //   // print(document.data.)
+      //   if (documents.length == 0) {
+      //     // Update data to server if new user
+      //     widget.createFn(
+      //       fireUser.email,
+      //       fireUser.uid,
+      //       fireUser.displayName,
+      //       fireUser.photoURL,
+      //     );
+      //   }
 
-        setState(() {
-          isLoading = false;
-        });
-        return fireUser;
-      }
+      //   setState(() {
+      //     isLoading = false;
+      //   });
+      //   return fireUser;
+      // }
     } on PlatformException catch (error) {
       print(error);
     }
