@@ -44,7 +44,6 @@ class MyApp extends StatelessWidget {
                   }
                   return HomeScreen();
                 });
-            // return ChatScreen();
           }
           return AuthScreen();
         },
